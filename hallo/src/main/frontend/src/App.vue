@@ -1,0 +1,9 @@
+<template>
+    <div id = "app">
+        <h1>Parts control application</h1>
+    </div>
+</template>
+<script>
+
+</script>
+<style></style>
