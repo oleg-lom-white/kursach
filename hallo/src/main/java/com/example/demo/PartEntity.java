@@ -1,10 +1,19 @@
 package com.example.demo;
 
+import java.time.Instant;
+
 public class PartEntity {
     private String id;
     private String material;
     private String type;
     private String size;
+    private Instant date;
+
+
+
+    public PartEntity() {
+        date = Instant.now();
+    }
 
     public String getId() {
         return id;
@@ -36,5 +45,9 @@ public class PartEntity {
 
     public void setSize(String size) {
         this.size = size;
+    }
+
+    public Instant getDate() {
+        return date;
     }
 }
