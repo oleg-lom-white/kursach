@@ -40,6 +40,7 @@ public class PartController {
 
     @RequestMapping(value = {"/{ID}"}, method = RequestMethod.DELETE)
     public boolean delete(@PathVariable(value = "ID") String id) {
+        System.out.println("Part is deleted: " + id);
         return partService.deletePart(id);
         }
     }

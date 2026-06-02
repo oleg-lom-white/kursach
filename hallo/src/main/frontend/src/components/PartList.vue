@@ -1,6 +1,7 @@
 <template>
     <div>
         <h2>Parts (Total: {{parts.length}})</h2>
+        <button type="button" @click="downloadPartList" :disabled="parts.length === 0"> Download</button>
         <ol>
             <li v-for="part in sortedParts" :key="part.id">
                 ------------------------------------<br/>
@@ -8,6 +9,7 @@
                 type: {{part.type}}<br/>
                 size: {{part.size}}<br/>
                 material: {{part.material}}<br/>
+                <button type="button" @click="deletePart(part.id)"> Delete </button>
             </li>
         </ol>
         <form @submit.prevent="savePart">
@@ -79,9 +81,25 @@ export default {
             reset()
             getParts()
         }
+        const deletePart = async (id) => {
+            await axios.delete (`/api/parts/${id}`)
+            getParts()
+        }
+        const downloadPartList = () => {
+            const json = JSON.stringify(sortedParts.value,null,2)
+            const blob = new Blob ([json],{type:'application/json'})
+            const url = URL.createObjectURL(blob)
+            const a = document.createElement('a')
+            a.href = url
+            a.download = 'parts.json'
+            a.click()
+            URL.revokeObjectURL(url)
+        }
+
+
         onMounted(getParts)
         return {
-        parts,sortedParts,partForm,previewSummary,summary,reset,savePart,correct
+        parts,sortedParts,partForm,previewSummary,summary,reset,savePart,correct,deletePart,downloadPartList
         }
     }
 }
